@@ -1,0 +1,114 @@
+﻿@model AnimalModel
+
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+<link rel="stylesheet" href="~/css/Login.css" />
+<link href="~/css/tabler.min.css" rel="stylesheet" />
+<link href="~/css/tabler-vendors.min.css" rel="stylesheet" />
+<link href="~/css/demo.min.css" rel="stylesheet" />
+
+
+
+<body class=" d-flex flex-column">
+    <div class="page page-center">
+        <div class="container container-normal py-4">
+            <div class="row align-items-center g-4">
+                <div class="col-lg">
+                    <div class="container">
+                        <div class="text-center mb-4">
+                            <div class="row">
+                                <div class="col-5">
+                                </div>
+                                <div class="col-2 bg-primary">
+                                    <a href="." class="navbar-brand navbar-brand-autodark"><img src="~/img/logo.png" height="100" alt="Logo"></a>
+                                </div>
+                                <div class="col-5">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card card-md">
+                            <div class="card-body">
+                                @using (Html.BeginForm("AddPost", "Home", FormMethod.Post))
+                                {
+                                    @Html.AntiForgeryToken()
+
+                                    <div class="row jumbotron">
+                                        <div class="col-sm-12 mx-t3 mb-4">
+                                            <h2 class="text-center text-info">Kayıt Ol</h2>
+                                            <h3 class="text-center text-danger">@ViewBag.Message</h3>
+                                        </div>
+                                        <div class="col-sm-6 form-group">
+                                            <label for="AnimalName">Hayvan Adı</label>
+                                            <input class="form-control" asp-for="AnimalName" placeholder="Hayvan Adınızı Giriniz." required>
+                                        </div>
+                                        <div class="col-sm-6 form-group">
+                                            <label for="Color">Renk</label>
+                                            <input class="form-control" asp-for="Color" placeholder="Renk Giriniz." required>
+                                        </div>
+                                        <div class="col-sm-6 form-group">
+                                            <label for="Age">Yaş</label>
+                                            <input class="form-control" asp-for="Age" placeholder="Hayvanın Yaşını Giriniz." required>
+                                        </div>
+                                        <div class="col-sm-6 form-group">
+                                            <label for="location">Adres</label>
+                                            <input class="form-control" asp-for="Location" placeholder="Adres" required>
+                                        </div>
+
+                                        <div class="col-sm-6 form-group">
+                                            <label for="Gender">Cinsiyet</label>
+                                            <select asp-for ="Gender" class="form-control browser-default custom-select">
+                                                <option value="m">Erkek</option>
+                                                <option value="f">Dişi</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-sm-6 form-group">
+                                            <label>Hastalık</label>
+                                            <input type="text" asp-for="Sickness" class="form-control" placeholder="Hastalığı Yoksa Boş Bırakın." required>
+                                        </div>
+                                        <div class="col-sm-4 form-group">
+                                            <label for="Weight">Ağırlık</label>
+                                            <input asp-for="Weight" class="form-control" placeholder="Ağırlık girin." required>
+                                        </div>
+                                        <div class="col-sm-4 form-group">
+                                            <label for="ImagePath">Görsel </label>
+                                            <input type="text" asp-for="ImagePath" class="form-control" placeholder="Görsel yolunu ekleyiniz." required>
+                                        </div>
+                                        <div class="col-md-4 form-check">
+                                            <input type="checkbox" asp-for="VaccineStatus" class="form-check-input" required>
+                                            <label class="form-check-label" for="vaccinestatus">Aşı Durumu</label>
+                                        </div>
+                                        <div class="col-sm-6 form-group">
+                                            <label for="sex">Irk</label>
+                                            <select name="RaceID" asp-for="RaceID" class="form-control browser-default custom-select">
+                                                <option value="1">Terrier</option>
+                                                <option value="2">Tekir</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-sm-6 form-group">
+                                            <label for="Title">Başlık</label>
+                                            <input class="form-control" asp-for="Title" placeholder="Başlık Giriniz." required>
+                                        </div>
+                                        <div class="col-sm-6 form-group">
+                                            <label for="description">Adres</label>
+                                            <input class="form-control" asp-for="Description" placeholder="Açıklama Giriniz." required>
+                                        </div>
+                                        <div class="col-sm-6 form-group">
+                                            <label for="AnimalTypeName">Hayvan Türü</label>
+                                            <input class="form-control" asp-for="AnimalTypeName" placeholder="Hayvan Türünü Giriniz." required>
+                                        </div>
+                                        <div class="col-sm-12 form-group mb-0">
+                                            <button class="btn btn-primary float-right">Gönder</button>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="/lib/jquery/dist/jquery.min.js"></script>
+    <script src="/lib/bootstrap/dist/js/bootstrap.js"></script>
+</body>

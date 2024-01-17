@@ -1,0 +1,170 @@
+﻿@{
+    ViewData["Title"] = "Chats";
+}
+
+
+
+            <div class="container-xl">
+                <div class="card">
+                    <div class="row g-0">
+                        <div class="col-12 col-lg-5 col-xl-3 border-end">
+                            <div class="card-header d-none d-md-block">
+                                <div class="input-icon">
+                                    <span class="input-icon-addon">
+                                        <!-- Download SVG icon from http://tabler-icons.io/i/search -->
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0"></path><path d="M21 21l-6 -6"></path></svg>
+                                    </span>
+                                    <input type="text" value="" class="form-control" placeholder="Search…" aria-label="Search">
+                                </div>
+                            </div>
+                            <div class="card-body p-0 scrollable" id="UserList" style="max-height: 35rem">
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-7 col-xl-9 d-flex flex-column">
+                            <div class="card-body scrollable" style="height: 35rem">
+                                <div class="chat">
+                                    <div class="chat-bubbles">
+                                        <div class="chat-item">
+                                            <div class="row align-items-end justify-content-end">
+                                                <div class="col col-lg-6">
+                                                    <div class="chat-bubble chat-bubble-me">
+                                                        <div class="chat-bubble-title">
+                                                            <div class="row">
+                                                                <div class="col chat-bubble-author">Mesaj Ataasdkmlöklasmdadsmlkn</div>
+                                                                <div class="col-auto chat-bubble-date">Mesaj Saati</div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="chat-bubble-body">
+                                                            <p>Mesaj</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-auto">
+                                                    <span class="avatar">AA</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="chat-item">
+                                            <div class="row align-items-end">
+                                                <div class="col-auto">
+                                                    <span class="avatar">AA</span>
+                                                </div>
+                                                <div class="col col-lg-6">
+                                                    <div class="chat-bubble">
+                                                        <div class="chat-bubble-title">
+                                                            <div class="row">
+                                                                <div class="col chat-bubble-author">Mesaj Diğer</div>
+                                                                <div class="col-auto chat-bubble-date">Mesaj Dİğer Saati</div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="chat-bubble-body">
+                                                            <p>Mesaaaj</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <div class="input-group input-group-flat">
+                                    <input type="text" class="form-control" autocomplete="off" placeholder="Type message">
+                                    <span class="input-group-text">
+                                        <a href="#" class="link-secondary" data-bs-toggle="tooltip" aria-label="Clear search" data-bs-original-title="Clear search">
+                                            <!-- Download SVG icon from http://tabler-icons.io/i/mood-smile -->
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0"></path><path d="M9 10l.01 0"></path><path d="M15 10l.01 0"></path><path d="M9.5 15a3.5 3.5 0 0 0 5 0"></path></svg>
+                                        </a>
+                                        <a href="#" class="link-secondary ms-2" data-bs-toggle="tooltip" aria-label="Add notification" data-bs-original-title="Add notification">
+                                            <!-- Download SVG icon from http://tabler-icons.io/i/paperclip -->
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M15 7l-6.5 6.5a1.5 1.5 0 0 0 3 3l6.5 -6.5a3 3 0 0 0 -6 -6l-6.5 6.5a4.5 4.5 0 0 0 9 9l6.5 -6.5"></path></svg>
+                                        </a>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    
+<!-- Libs JS -->
+<!-- Tabler Core -->
+<script src="/lib/jquery/dist/jquery.min.js"></script>
+<script src="/js/tabler.min.js" defer=""></script>
+<script src="/js/demo.min.js" defer=""></script>
+<script>
+    
+    function getUrlParameter(name) {
+        name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+        var regex = new RegExp("[\\?&]" + name + "=([^&#]*)");
+        var results = regex.exec(location.search);
+        return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+    }
+    var param1Value = getUrlParameter("id");
+    var param2Value = getUrlParameter("secondid");
+    GetAllUserList(param1Value);
+    function GetAllUserList() {
+        $.ajax({
+            url: '@Url.Action("GetData", "Home")',
+            type: 'GET',
+            data: { id:0 },
+            success: function (result) {
+                console.log(result)
+                if (result===null) {
+                    userlist += "NoMessages";
+                }
+                $('#UserList').html('');
+                var userlist = '';
+                result.forEach(function (i, item) {
+                    
+                    console.log("1")
+                    var element = item < 1 ? "active" : "";
+                    userlist += ` <div class="nav flex-column nav-pills"  role="tablist">
+                     <a onclick="GetMessageData(`+ i.userSecondID + `)" class="nav-link text-start mw-100 p-3 ` + element + `" id="chat-1-tab" data-bs-toggle="pill" role="tab" aria-selected="true">
+                     <div class="row align-items-center flex-fill">
+                         <div class="col-auto">
+                                     <span class="avatar">`+ i.secondFullName.substr(0, 2) + `</span>
+                         </div>
+                         <div class="col text-body">
+                                 <div>`+ i.secondFullName + `</div>
+                             <div class="text-secondary text-truncate w-100">`+ i.message.substr(0, 30) + `</div>
+                         </div>
+                     </div>
+                 </a>`;
+                });
+                $('#UserList').append(userlist);
+            },
+            error:function(){alert("hata")}
+        })
+    }
+    function GetMessageData(id) {
+        $.ajax({
+            url: '@Url.Action("GetDasta", "Home")',
+            type: 'GET',
+            data: id,
+            success: function (result) {
+                $('#UserList').html('');
+                var userlist = '';
+                result.forEach(function (i, item) {
+                    var element = item < 1 ? "active" : "";
+                    userlist += ` <div class="nav flex-column nav-pills" role="tablist">
+                 <a href="#chat-1" class="nav-link text-start mw-100 p-3 `+ element + `" id="chat-1-tab" data-bs-toggle="pill" role="tab" aria-selected="true">
+                     <div class="row align-items-center flex-fill">
+                         <div class="col-auto">
+                                     <span class="avatar">`+ i.secondFullName.substr(0, 2) + `</span>
+                         </div>
+                         <div class="col text-body">
+                                 <div>`+ i.secondFullName + `</div>
+                             <div class="text-secondary text-truncate w-100">`+ i.message.substr(0, 30) + `</div>
+                         </div>
+                     </div>
+                 </a>`;
+                });
+                $('#UserList').append(userlist);
+
+            }
+        })
+    }
+</script>
+
+

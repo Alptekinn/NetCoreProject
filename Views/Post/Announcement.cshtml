@@ -1,0 +1,161 @@
+﻿
+@{
+    ViewData["Title"] = "Announcement";
+}
+
+<h1>Announcement</h1>
+<style>
+    .Info-top {
+        position: fixed;
+        top: 5px;
+        left: 2%;
+        width: 96%;
+    }
+
+    .alert {
+        display: none;
+    }
+</style>
+<body>
+    <br />
+    <div class="col">
+        <div class="col">
+            <div class="row rounded-2" style="background-color: #094067;">
+                <div class="col-sm-4">
+                    <br />
+                    <select class="form-select form-select-md mb-3" style="color: #094067" id="Sırala">
+                        <option value="1" selected>Varsayılan</option>
+                        <option value="2">Artan</option>
+                        <option value="3">Azalan</option>
+                        <option value="4">Populer</option>
+                    </select>
+                </div>
+                <div class="col-sm-4 ">
+                    <br />
+                    <div class="col-sm-4 d-flex justify-content-between">
+                        <button id="btnSırala" class="btn" style="background-color: #3da9fc; color: #fffffe">Sırala</button>
+                        <div style="width: 10px;"></div>
+                        <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" id="btnSepet" aria-controls="offcanvasScrolling">Sepet</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br />
+    </div>
+
+    <div class="row row-cols-1 row-cols-md-3 g-4" id="productCustomerListe">
+    </div>
+
+    <div class="d-grid gap-2 col-6 mx-auto">
+        <button class="btn" id="MoreData" style="background-color: #094067; color: #fffffe ">Daha Fazla</button>
+    </div>
+
+
+
+    <div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasScrollingLabel">Ürünlerim</h5>
+            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body" id="canvas1">
+            <div class="col-12" id="sepetlist">
+            </div>
+        </div>
+    </div>
+    <div id="Basarili" class="Info-top alert alert-success">
+        <strong>Başarılı!</strong> Ürününüz Sepete eklendi
+    </div>
+    <div id="Basarisiz" class="Info-top alert alert-danger">
+        <strong>Hata!   </strong>    Ürün Adedi seçilmedi!!!
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script>
+        var page = 1;
+        var sira = 1;
+        $(document).ready(function () {
+            loadMoreData(sira, page);
+        })
+        $("#MoreData").click(function () {
+            ++page;
+            loadMoreData(sira, page);
+        });
+        $("#btnSırala").click(function () {
+            sira = $("#Sırala option:selected").val();
+            $("#productCustomerListe").html('');
+            loadMoreData(sira, page)
+        });
+        function loadMoreData(sira = 1, page) {
+
+            var data = {
+                PageNo: page,
+                sira: sira
+            }
+            $.ajax({
+                url: "@Url.Action("GetProductCustomerList", "Products")",
+                type: "post",
+                data: data,
+                beforeSend: function () {
+
+                },
+                success: function (data) {
+                    if (data != null && data.length > 0) {
+                        var previousContent = $("#productCustomerListe").html();
+                        previousContent + data;
+
+                        var result = '';
+
+                        data.forEach(function (i, item) {
+                            imgurl = 'https://picsum.photos/320/200?random=' + i.UrunId;
+                            result += `<div class="col">
+                                    <div class="card border-light text-md-center" style="background-color: #094067">
+                                          <img src="${imgurl}" alt="...">
+                                            <div class="card-body">
+                                            <h5 class="card-title" style="color: #d8eefe">`+ i.UrunAd + `</h5>
+                                            <p class="card-text" style="color: #d8eefe">`+ i.Kategori + `</p>
+                                            <h5 class="card-text" style="color: #fffffe"><b>Fiyat `+ i.Fiyat + ` tl</b></h5>
+                                            <div class="d-flex justify-content-center align-items-center">
+                                            <input type="number" class="form-control col-xs-2 me-2" style="width:80px" value="1" id="Miktar${i.UrunId}">
+                                            <button class="btn btn-primary" onclick="AddtoBasket(${i.UrunId})">Sepete Ekle</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>`;
+                        })
+                        $("#productCustomerListe").append(result);
+
+                    }
+                },
+            });
+        }
+        function AlertOpen(check) {
+            if (check) {
+                $("#Basarili").show();
+                setTimeout(function () {
+                    $("#Basarili").hide();
+                }, 2000);
+            }
+            else {
+                $("#Basarisiz").show();
+                setTimeout(function () {
+                    $("#Basarisiz").hide();
+                }, 2000);
+            }
+        };
+    </script>
+    <script>
+        var cards = document.querySelectorAll(".card");
+
+        cards.forEach(function (card) {
+            card.addEventListener("mouseover", function () {
+                card.classList.add("border-info");
+                card.classList.remove("border-light");
+            });
+
+            card.addEventListener("mouseout", function () {
+                card.classList.remove("border-info");
+                card.classList.add("border-light");
+            });
+        });
+    </script>
+
+</body>

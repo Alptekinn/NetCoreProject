@@ -1,0 +1,40 @@
+﻿@model List<AnimalModel>
+
+@{
+    ViewData["Title"] = "Animal Detail";
+}
+
+
+<h1>Animal Details</h1>
+
+
+<div class="card card-md">
+    <div class="card-body">
+        @if (Model != null)
+        {
+            foreach (var item in Model)
+            {
+                <div>
+                    <img src="@item.ImagePath" />
+                    <h2>@item.AnimalName</h2>
+                    <p>Age: @item.Age</p>
+                    <p>Color: @item.Color</p>
+                    <p>test</p>
+                    <p> @item.UserID</p>
+                    <button id="SendMessage" onclick="SendMesssages(@item.UserID)" class="bg-primary"> Tıkla</button>
+                </div>
+            }
+
+        }
+        else
+        {
+            <p>No animal details found.</p>
+        }
+    </div>
+</div>
+<script src="/lib/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript">
+        function SendMesssages(id,secondşd) {
+        window.location.href = "/Home/Chats?id=" + id + "&secondid=" + @User.FindFirst("UserID")!.Value.ToString();
+        }
+</script>
